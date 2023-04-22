@@ -165,7 +165,7 @@ while game_won == 0:
             with open('p2_hash.txt', 'r') as file:
                 content = file.read()
             p2_cur_hash = re.search(pattern, content)
-            p2_cur_board = update_board(p2_cur_board, x1,y1,x2,y2, result[3], True)
+            p2_cur_board = update_board(p2_cur_board)
 
             # p1 loser update state
             load_json(player["p1"]) # verify move 
@@ -173,7 +173,7 @@ while game_won == 0:
             with open('p1_hash.txt', 'r') as file:
                 content = file.read()
             p1_cur_hash = re.search(pattern, content)
-            p1_cur_board = update_board(p1_cur_board, x1,y1,x2,y2,result[5], False)
+            p1_cur_board = get_board(p1_cur_board)
 
         else: 
             b1[x2][y2] = result[3]
@@ -182,20 +182,23 @@ while game_won == 0:
 
             # p2 loser update state
             load_json(player["p2"]) # verify move 
-            os.system("leo run update_state " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p2_hash.txt')
+            os.system("leo run update_state " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' true' +  ' > p2_hash.txt')
             with open('p2_hash.txt', 'r') as file:
                 content = file.read()
             p2_cur_hash = re.search(pattern, content)
-            p2_cur_board = update_board(p2_cur_board, x1,y1,x2,y2, result[3], True)
+            p2_cur_board = get_board(p2_cur_board)
 
             # p1 winner update state
             load_json(player["p1"]) # verify move 
-            os.system("leo run update_state " + p1_cur_board + " " + p1_salt + " " + p1_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' true' +  ' > p1_hash.txt')
+            os.system("leo run update_state " + p1_cur_board + " " + p1_salt + " " + p1_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p1_hash.txt')
             with open('p1_hash.txt', 'r') as file:
                 content = file.read()
             p1_cur_hash = re.search(pattern, content)
-            p1_cur_board = update_board(p1_cur_board, x1,y1,x2,y2,result[5], False)
+            p1_cur_board = get_board(p1_cur_board)
+    
+    # normal move
     else:
+        os.system("leo run update_state " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' true' +  ' > p2_hash.txt')
         
 
 
