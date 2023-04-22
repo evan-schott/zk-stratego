@@ -71,7 +71,7 @@ os.system('leo ' + 'run ' + 'commit_board ' + p1_input_board + " " + p1_salt + '
 with open('p1_hash.txt', 'r') as file:
     content = file.read()
 p1_commit_hash = re.search(pattern, content)
-print("Hash commit of p2: " + p1_commit_hash.group())
+print("Hash commit of p1: " + p1_commit_hash.group())
 
 # 2. init p2:
 load_json("p2") # Set keys
@@ -105,7 +105,8 @@ def get_board(board):
     return arr
 
 
-def update_board(old, x1, y1, x2, y2, s, winner):
+def update_board(old2, x1, y1, x2, y2, s, winner):
+    old = int(old2[:-4])
     if winner:
         return old - (int(s))*(2**(3*(6*int(x1) + int(y1)))) + (int(s))*(2**(3*(6*int(x2) + int(y2))))
     else:
@@ -114,19 +115,23 @@ def update_board(old, x1, y1, x2, y2, s, winner):
 game_won = 0
 
 # 3. moves
-player = ["p1","p2"]
+players = ["p1","p2"]
 counter = 0
 p2_cur_board = p2_input_board
-p2_cur_hash = p2_commit_hash
+p2_cur_hash = p2_commit_hash.group()
  
 p1_cur_board = p1_input_board
-p1_cur_hash = p2_commit_hash
+p1_cur_hash = p2_commit_hash.group()
 
 while game_won == 0:
+    
 
     # switch to Pi
-    load_json(player[counter % 2])
+    load_json(players[counter % 2])
+    player = players[counter % 2]
     counter += 1
+
+    print(player + " is starting turn now!")
 
     # Ask for move:
     move = input("Please input move in format \'x1 y1 x2 y2 \'")
@@ -142,88 +147,92 @@ while game_won == 0:
     # Assume legal move
 
     # Case combat 
-    if (player == "p1" and b2[x2][y2] != 0) or (player == "p2" and b1[x2][y2] != 0):
+    if (player == "p1" and b2[int(x2)][int(y2)] != 0) or (player == "p2" and b1[int(x2)][int(y2)] != 0):
 
         # Player 1 reveal
-        load_json(player["p1"])
+        load_json("p1")
         os.system("leo run reveal_piece " + p1_cur_board + " " + p1_salt + " " + p1_cur_hash + " " + x2 + " " + y2)
 
         # Player 2 reveal
-        load_json(player["p2"])
+        load_json("p2")
         os.system("leo run reveal_piece " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x2 + " " + y2)
 
         # Resolve combat
         result = input("combat winner in format \'winning_player piece loser_piece\': ") # TODO: add checks if have time
         if result[0:2] == "p2":
-            b1[x2][y2] = 0
-            b2[x1][y1] = 0
-            b2[x2][y2] = result[3]
+            b1[int(x2)][int(y2)] = 0
+            b2[int(x1)][int(y1)] = 0
+            b2[int(x2)][int(y2)] = result[3]
 
             # p2 winner update state
-            load_json(player["p2"]) # verify move 
+            load_json("p2") # verify move 
             os.system("leo run update_state " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p2_hash.txt')
             with open('p2_hash.txt', 'r') as file:
                 content = file.read()
             p2_cur_hash = re.search(pattern, content)
-            p2_cur_board = update_board(p2_cur_board)
+            p2_cur_board = update_board(p2_cur_board, int(x1), int(y1), int(x2), int(y2), int(result[3]), True)
+            p2_cur_board = get_board(p2_cur_board)
 
             # p1 loser update state
-            load_json(player["p1"]) # verify move 
+            load_json("p1") # verify move 
             os.system("leo run update_state " + p1_cur_board + " " + p1_salt + " " + p1_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' true' +  ' > p1_hash.txt')
             with open('p1_hash.txt', 'r') as file:
                 content = file.read()
             p1_cur_hash = re.search(pattern, content)
+            p1_cur_board = update_board(p1_cur_board, int(x1), int(y1), int(x2), int(y2), int(result[5]), False)
             p1_cur_board = get_board(p1_cur_board)
 
         else: 
-            b1[x2][y2] = result[3]
-            b1[x1][y1] = 0
-            b2[x2][y2] = 0
+            b1[int(x2)][int(y2)] = result[3]
+            b1[int(x1)][int(y1)] = 0
+            b2[int(x2)][int(y2)] = 0
 
             # p2 loser update state
-            load_json(player["p2"]) # verify move 
+            load_json("p2") # verify move 
             os.system("leo run update_state " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' true' +  ' > p2_hash.txt')
             with open('p2_hash.txt', 'r') as file:
                 content = file.read()
             p2_cur_hash = re.search(pattern, content)
+            p2_cur_board = update_board(p2_cur_board, int(x1), int(y1), int(x2), int(y2), int(result[5]), False)
             p2_cur_board = get_board(p2_cur_board)
 
             # p1 winner update state
-            load_json(player["p1"]) # verify move 
+            load_json("p1") # verify move 
             os.system("leo run update_state " + p1_cur_board + " " + p1_salt + " " + p1_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p1_hash.txt')
             with open('p1_hash.txt', 'r') as file:
                 content = file.read()
             p1_cur_hash = re.search(pattern, content)
+            p1_cur_board = update_board(p1_cur_board, int(x1), int(y1), int(x2), int(y2), int(result[3]), True)
             p1_cur_board = get_board(p1_cur_board)
     
     # normal move
     else:
-        os.system("leo run update_state " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' true' +  ' > p2_hash.txt')
-        
+        if player == "p2":
+            os.system("leo run update_state " + player + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p2_hash.txt')
+            with open('p2_hash.txt', 'r') as file:
+                content = file.read()
+            p2_cur_hash = re.search(pattern, content)
+            
+        else:
+            os.system("leo run update_state " + player + " " + p1_salt + " " + p1_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p1_hash.txt')
+            with open('p1_hash.txt', 'r') as file:
+                content = file.read()
+            p1_cur_hash = re.search(pattern, content)
+    
+    print("P1 Board:")
+    print_board(p1_cur_board)
+    print("P2 Board:")
+    print_board(p2_cur_board)
 
 
+    p2_win = check_win(p1_cur_board)
+    p1_win = check_win(p2_cur_board)
 
-
-# 	1. Move:
-# 		1. Switch to pi
-# 		2. Ask for (x1,y1)->(x2,y2)
-# 		3. Check for combat?
-# 			1. pi does verify
-# 			2. switch to pi*
-# 			3. pi* does verify
-# 		4. Move
-
-# board = 
-
-# p1_board
-# p2_board 
-
-
-# def u128_to_board():
-
-# def print_board():
-
-
-
-
+    if p1_win:
+        print("P1 WIN")
+        game_won = 1
+    if p2_win:
+        print("P2 WIN")
+        game_won = 2
+    
 

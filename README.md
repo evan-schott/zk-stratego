@@ -9,11 +9,11 @@ The original Stratego is military themed, but we chose to use a __✅ crypto com
 | ------------- |:-------------:|:-----:| -----:|
 | Flag      | goal is to capture it | 1 | N/A |
 | Hash puzzle      | so tough that only a miner can solve (aka capture) it      | 3 | 10 |
-| Whistleblower | are neat      | 1 | 1 |
-| Intern | are neat      |   2 | 2 |
-| Miner | are neat      |   2 | 3 |
-| Dev | are neat      |   2 | 4 |
-| CEO | are neat      |  1 | 5 |
+| Whistleblower | no one likes them anymore :(      | 1 | 1 |
+| Intern | might be a newcomer, but still more loved than the whistleblower      |   2 | 2 |
+| Miner | can "defuse" the hash puzzles.      |   2 | 3 |
+| Dev | beats everyone except the CEO.      |   2 | 4 |
+| CEO | only the whistleblower can kill it :)      |  1 | 5 |
 
 A corollary is that at the beginning, each player has 16 pieces on their board and 24 empty squares (the opponent's pieces are not noted).
 
@@ -26,7 +26,6 @@ The game flow:
 6. Repeat steps 3, 4, and 5 until a flag is captured.
 
 
-##### SAMPLE GAME 
 
 ## Functions
 We took great care in minimizing the computations done by the zk circuits. Below are details about each function.
@@ -34,6 +33,39 @@ We took great care in minimizing the computations done by the zk circuits. Below
 * `reveal_piece`: When a piece attacks/gets attacked by another piece, both players need to announce the types of their pieces. The strengths of the pieces then get compared. This function reveals the type of the piece in the given location while proving that it is using the most recent state of the board. Note that this function does not do any bound checks for the position: because the location is public, the prover must input meaningful positions. Otherwise, the opponent will not get convinced. If the location was private, we would have had to do bound checks.
 * `commit_board`: Each player needs to assure their opponent that the way they place their piece on the board is valid. However, they are not supposed to reveal which piece is where. In other words, for every position on the board, the opponent should only know whether there is a piece there or not. They shouldn't learn the type of the piece. This function produces a hash that acts as a commitment to the piece configuration. When making the next move, this hash value is referenced to prove that no piece has been sneakily moved since the last public move.
 
+## CLI
+We have built a neat CLI for people to play with the circuits. After making sure that you have Python installed, run the following command to start the CLI:
+```
+python3 cli.py
+```
+
+<details><summary>Sample game</summary>
+
+```
+$ python3 cli.py
+please input board in u128 encoding:67472864401u128
+[1, 2, 2, 2, 3, 4]
+[4, 5, 5, 6, 6, 7]
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+
+Hash commit of p1: 5966404717360953959189500305986519074497859943280855526706174540336189468404field
+please input board in u128 encoding:318631593350490860862688876036096u128
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+[1, 2, 2, 2, 3, 4]
+[4, 5, 5, 6, 6, 7]
+
+Hash commit of p2: 3022696028183921486128843170473858730579662163804958222358963924403580796285field
+p1 is starting turn now!
+Please input move in format 'x1 y1 x2 y2 '1 0 2 0
+```
+
+</details>
 
 ## Next steps
 We recognize that there have been issues with the faucet and the testnet itself. Once these issues are resolved (and when we get access to some testnet credits 🙂), the program will be deployed to the testnet.
