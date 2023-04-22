@@ -1,0 +1,10 @@
+{
+    "program": "stratego.aleo",
+    "version": "0.0.0",
+    "description": "",
+    "development": {
+        "private_key": "APrivateKey1zkpAnRwNbkKXXPp7saWJPKXvUUsEwzRe9Ehp1wdQa3DJYrc",
+        "address": "aleo13y3pk8fdg45f7nl508l34kdt4e7np79q840pkyx8ypfm5tx6nvgq6gmfl2"
+    },
+    "license": "MIT"
+}
