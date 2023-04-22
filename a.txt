@@ -1,0 +1,14 @@
+total 48
+-rw-r--r--@ 1 evanschott  staff   355 Apr 21 23:01 README.md
+-rw-r--r--@ 1 evanschott  staff     0 Apr 22 00:28 a.txt
+drwxr-xr-x@ 5 evanschott  staff   160 Apr 21 19:40 build
+-rw-r--r--@ 1 evanschott  staff   129 Apr 22 00:28 cli.py
+-rw-r--r--@ 1 evanschott  staff  1028 Apr 21 23:08 init_board.py
+drwxr-xr-x@ 3 evanschott  staff    96 Apr 21 17:38 inputs
+-rw-r--r--@ 1 evanschott  staff  3716 Apr 21 22:41 main_new.leo
+drwxr-xr-x@ 3 evanschott  staff    96 Apr 21 22:24 old
+drwxr-xr-x@ 2 evanschott  staff    64 Apr 21 19:40 outputs
+-rw-r--r--@ 1 evanschott  staff   303 Apr 21 17:38 program.json
+drwxr-xr-x@ 3 evanschott  staff    96 Apr 21 22:24 src
+drwxr-xr-x@ 3 evanschott  staff    96 Apr 21 21:30 swap
+-rw-r--r--@ 1 evanschott  staff   681 Apr 21 22:34 test.py

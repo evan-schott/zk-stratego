@@ -6,7 +6,7 @@ program stratego.aleo {
     *
     * @param board the board before moving/removing the piece
     * @param salt the salt that was used to produce the hash commitment
-    * @param hash public commitment to the board 
+    * @param hash public hash commitment to the board 
     * @param x1 initial x position of the piece
     * @param y1 initial y position of the piece
     * @param x2 final x position of the piece. if the piece gets removed, this parameter does not affect anything
@@ -14,7 +14,12 @@ program stratego.aleo {
     * @param is_killed true if the piece is getting removed.
     * @return hash commitment to the new board
     * 
-    * Detailed description
+    * When a player's piece configuration changes, the commitment to their old board is no longer relevant. So,
+    * they need to generate a new one. A piece configuration can change if 1) a piece simply gets moved, 2) a piece
+    * gets attacked by a stronger piece and killed, 3) a piece tries to attack a stronger piece but gets killed,
+    * 4) a piece attacks a weaker piece and replaced it on the board. This function proves that the board being updated
+    * is the board representing the last state of the piece configuration before the update. It then moves or removes the
+    * relevant piece on/from the board as necessary.
     **/
     transition update_state(board: u128, salt: u128, public hash: field, public x1: u8, public y1: u8, public x2: u8, public y2: u8, public is_killed: bool) -> field {
         // we need to be revealing a position on the board that we had committed to
@@ -52,15 +57,17 @@ program stratego.aleo {
     *
     * @param board the board before removing the piece
     * @param salt the salt that was used to produce the hash commitment
-    * @param hash 
-    * @param x1 initial x position of the piece
-    * @param y1 initial y position of the piece
-    * @param x2 final x position of the piece. if the piece gets removed, this parameter does not affect anything
-    * @param y2 final y position of the piece. if the piece gets removed, this parameter does not affect anything
-    * @param is_killed true if the piece is killed.
-    * @return if any return value
+    * @param hash public hash commitment to the board
+    * @param x x position of the piece
+    * @param y y position of the piece
+    * @return the type of the piece at position (x,y)
     * 
-    * Detailed description
+    * When a piece attacks/gets attacked by another piece, both players need to announce the types
+    * of their pieces. The strengths of the pieces then get compared. This function reveals the type
+    * of the piece in the given location while proving that it is using the most recent state of the 
+    * board. Note that this function does not do any bound checks for the position: because the location
+    * is public, the prover must input meaningful positions. Otherwise, the opponent will not get convinced.
+    *  If the location was private, we would have had to do bound checks.
     **/
     transition reveal_piece(board: u128, salt: u128, public hash: field, public x: u8, public y: u8) -> u128 {
         // cannot reveal a position outside the board
@@ -76,21 +83,21 @@ program stratego.aleo {
     }
 
     /** 
-    * Produces a hash commitment to the board 
+    * Produces a hash commitment to the board.
     *
     * @param board the board before moving/removing the piece
     * @param salt the salt that was used to produce the hash commitment
-    * @param is_player_1 public commitment to the board 
-    * @param x1 initial x position of the piece
-    * @param y1 initial y position of the piece
-    * @param x2 final x position of the piece. if the piece gets removed, this parameter does not affect anything
-    * @param y2 final y position of the piece. if the piece gets removed, this parameter does not affect anything
-    * @param is_killed true if the piece is getting removed.
+    * @param is_player_2 true if this is the 
     * @return hash commitment to the board
     * 
-    * Detailed description
+    * Each player needs to assure their opponent that the way they place their piece on the board is valid.
+    * However, they are not supposed to reveal which piece is where. In other words, for every position on 
+    * the board, the opponent should only know whether there is a piece there or not. They shouldn't learn
+    * the type of the piece. This function produces a hash that acts as a commitment to the piece configuration.
+    * When making the next move, this hash value is referenced to prove that no piece has been sneakily moved
+    * since the last public move.
     **/
-    transition commit_board(board: u128, salt: u128, is_player_1: bool) -> field {
+    transition commit_board(board: u128, salt: u128, is_player_2: bool) -> field {
 
         // counters for the pieces
         let c0: u8 = 0u8;
@@ -112,7 +119,7 @@ program stratego.aleo {
             assert(cur_slot < 8u128);
 
             // Make sure only placing pieces on their side of board
-            if is_player_1 {
+            if is_player_2 {
                 if i < 24u8 {
                     assert(cur_slot == 0u128);
                 }
@@ -160,7 +167,7 @@ program stratego.aleo {
         assert(c1 == 1u8);  // 1 flag
         assert(c2 == 3u8);  // 3 hash puzzles
         assert(c3 == 1u8);  // 1 Whistleblower
-        assert(c4 == 2u8);  // 2 Inters
+        assert(c4 == 2u8);  // 2 Interns
         assert(c5 == 2u8);  // 2 Miners
         assert(c6 == 2u8);  // 2 Devs
         assert(c7 == 1u8);  // 1 CEO
@@ -168,6 +175,4 @@ program stratego.aleo {
         // Return hash commitment
         return Poseidon2::hash(board + salt);
     }
-
-
 }

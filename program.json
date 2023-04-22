@@ -1,10 +1,1 @@
-{
-    "program": "stratego.aleo",
-    "version": "0.0.0",
-    "description": "",
-    "development": {
-        "private_key": "APrivateKey1zkpAnRwNbkKXXPp7saWJPKXvUUsEwzRe9Ehp1wdQa3DJYrc",
-        "address": "aleo13y3pk8fdg45f7nl508l34kdt4e7np79q840pkyx8ypfm5tx6nvgq6gmfl2"
-    },
-    "license": "MIT"
-}
+{"program": "stratego.aleo", "version": "0.0.0", "description": "", "development": {"private_key": "APrivateKey1zkp7mWwcLLxTcA2CyoKHfSgxv7cUKxNkQhJcDisUwpJLi4h", "view_key": "AViewKey1eLahbMecbSj5bYbmfgkHKdHCtgFLdThtBafMAsVxYVi1", "address": "aleo19uznaptte0k4mmvtxhfet4e9cgc0skzwd4a2xefeeay03ga89v9s4rj8gn"}, "license": "MIT"}

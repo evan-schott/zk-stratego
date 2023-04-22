@@ -1,0 +1,13 @@
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 3022696028183921486128843170473858730579662163804958222358963924403580796285field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/stratego/build")
