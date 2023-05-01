@@ -21,6 +21,8 @@ player_salt = ""
 opp_player_salt = ""
 player = ""
 opp_player =""
+last_i = -1
+last_j = -1
 
 p1_program_json = {
     "program": "stratego.aleo",
@@ -76,22 +78,33 @@ Should look like:
 
 '''
 
-VERTICAL_BORDER = '┃'
-HORIZONTAL_BORDER = '━'
-TOP_LEFT = '┏'
-TOP_RIGHT = '┓'
-BOTTOM_LEFT = '┗'
-BOTTOM_RIGHT = '┛'
-LEFT_BORDER = '┣'
-RIGHT_BORDER = '┫'
-BOTTOM_BORDER = '┻'
-TOP_BORDER = '┳'
-CENTER = '╋'
+VERTICAL_BORDER = '│'
+HORIZONTAL_BORDER = '─'
+TOP_LEFT = '┌'
+TOP_RIGHT = '┐'
+BOTTOM_LEFT = '└'
+BOTTOM_RIGHT = '┘'
+LEFT_BORDER = '├'
+RIGHT_BORDER = '┤'
+BOTTOM_BORDER = '┴'
+TOP_BORDER = '┬'
+CENTER = '┼'
 
 TOP_LINE = TOP_LEFT + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_RIGHT
 MIDDLE_LINE = LEFT_BORDER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + RIGHT_BORDER
 BOTTOM_LINE = BOTTOM_LEFT + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_RIGHT
 
+def print_red(text):
+    red = "\033[31m"
+    reset = "\033[0m"
+    print(f"{red}{text}{reset}",end='')
+
+def print_blue(text):
+    blue = "\033[34m"
+    reset = "\033[0m"
+    print(f"{blue}{text}{reset}",end="")
+
+    
 def print_board_str(board):
     int_board = int(board[:-4]) # remove the 
     print("\n" + TOP_LINE)
@@ -101,7 +114,10 @@ def print_board_str(board):
             print(MIDDLE_LINE)
 
         cur = (int_board & (2**(3*i)+2**(3*i +1)+2**(3*i +2))) >> (3*i)
-        print(VERTICAL_BORDER + ' ' + str(cur) + ' ',end="")
+        if cur == 0:
+            print(VERTICAL_BORDER + ' ' + " " + ' ',end="")
+        else:
+            print(VERTICAL_BORDER + ' ' + str(cur) + ' ',end="")
     print(VERTICAL_BORDER)
     print(BOTTOM_LINE +"\n")
 
@@ -113,12 +129,26 @@ pattern = r'\d+field'
 # selected = pick(options, title, min_selection_count=1)
 # print(selected)
 
+def parse_board(input_file):
+    sum = 0
+    exp = 1
+    with open(input_file, 'r+') as f:
+        grid = json.load(f)
+        for row in grid:
+            for num in row:
+                sum += num * exp
+                exp *= 8
+
+        return str(sum) + "u128"
+
 # 1. init p1:
 load_json("p1") # Set keys
-p1_board = input("please input board in u128 encoding:") # Ask for board from user
+# p1_board = input("please input board in u128 encoding:") # Ask for board from user
+p1_board_file = input("please provide the path to the file containing your board data:\n")
+p1_board = parse_board(p1_board_file)
 print("P1 private board state")
-print_board_str(p1_board)
-os.system('leo ' + 'run ' + 'commit_board ' + p1_board + " " + p1_salt + ' false' ' > p1_hash.txt') # verify board
+print_board_str(p1_board) 
+os.system('leo ' + 'run ' + 'commit_board ' + p1_board + " " + p1_salt + ' false' + ' | tee -a ledger.txt > ' + 'p1_hash.txt') # verify board
 with open('p1_hash.txt', 'r') as file:
     content = file.read()
 p1_hash = re.search(pattern, content)
@@ -128,17 +158,17 @@ print("Hash commit=" + p1_hash)
 
 # 2. init p2:
 load_json("p2") # Set keys
-p2_board = input("\n\nplease input board in u128 encoding:") # Ask for board from user
+p2_board_file = input("\n\nplease provide the path to the file containing your board data:\n") # Ask for board from user
+p2_board = parse_board(p2_board_file)
 print("P2 private board state")
 print_board_str(p2_board)
-os.system('leo ' + 'run ' + 'commit_board ' + p2_board + " " + p2_salt + ' true' ' > p2_hash.txt') # verify board
+os.system('leo ' + 'run ' + 'commit_board ' + p2_board + " " + p2_salt + ' true' + ' | tee -a ledger.txt > ' + 'p2_hash.txt') # verify board
 with open('p2_hash.txt', 'r') as file:
     content = file.read()
 p2_hash = re.search(pattern, content)
 p2_hash = p2_hash.group()
 print("P2 board verified.")
 print("Hash commit=" + p2_hash)
-
 
 # Scans board to see if own flag still stands
 def check_if_i_lost(board):
@@ -175,12 +205,12 @@ def update_board_lose(board, i1, j1, val):
 
 def pov_print_board_arr(hero_board, villain_board):
     arr = [
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0]]
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "]]
     for i in range(6):
         for j in range(6):
             if hero_board[i][j] != 0:
@@ -195,7 +225,29 @@ def print_arr_board(board):
         if i % 6 == 0 and i != 0:
             print(VERTICAL_BORDER)
             print(MIDDLE_LINE)
-        print(VERTICAL_BORDER + ' ' + str(board[int(i/6)][i%6]) + ' ',end="")
+        if player == "p1":
+            if str(board[int(i/6)][i%6]) in ["1","2","3","4","5","6","7"]:
+                print(VERTICAL_BORDER + ' ',end="")
+                print_blue(str(board[int(i/6)][i%6]))
+                print(' ',end="")
+            elif str(board[int(i/6)][i%6]) == "X":
+                print(VERTICAL_BORDER + ' ',end="")
+                print_red(str(board[int(i/6)][i%6]))
+                print(' ',end="")
+            else:
+                print(VERTICAL_BORDER + ' ' + str(board[int(i/6)][i%6]) + ' ',end="")
+        else:
+            if str(board[int(i/6)][i%6]) in ["1","2","3","4","5","6","7"]:
+                print(VERTICAL_BORDER + ' ',end="")
+                print_red(str(board[int(i/6)][i%6]))
+                print(' ',end="")
+            elif str(board[int(i/6)][i%6]) == "X":
+                print(VERTICAL_BORDER + ' ',end="")
+                print_blue(str(board[int(i/6)][i%6]))
+                print(' ',end="")
+            else:
+                print(VERTICAL_BORDER + ' ' + str(board[int(i/6)][i%6]) + ' ',end="")
+        
     print(VERTICAL_BORDER)
     print(BOTTOM_LINE + "\n")
 
@@ -247,11 +299,15 @@ while game_won == 0:
     pov_print_board_arr(player_board_arr, opp_player_board_arr)
 
     # Ask for move: (Assume legal move)
-    move = input("Please input move in format \'i1 j1 i2 j2 \'")
-    i1 = int(move[0])
-    j1 = int(move[2])
-    i2 = int(move[4])
-    j2 = int(move[6])
+    print("Please indicate which piece to move:")
+    i1 = int(input("row: "))
+    j1 = int(input("column: "))
+    i2 = int(input("new row: "))
+    j2 = int(input("new column: "))
+
+    last_i = i2
+    last_i = j2
+
 
     # Update State Functions
     # Case 1: Player killed
@@ -262,7 +318,7 @@ while game_won == 0:
         global player_hash
 
         load_json(player)
-        os.system("leo run update_state " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1)+"u8" + " " + str(j1)+"u8" + " " + str(i2)+"u8" + " " + str(j2)+"u8" + ' true' +  ' > ' + player + '_hash.txt')
+        os.system("leo run update_state " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1)+"u8" + " " + str(j1)+"u8" + " " + str(i2)+"u8" + " " + str(j2)+"u8" + ' true' + ' | tee -a ledger.txt > ' + player + '_hash.txt')
         with open(player + '_hash.txt', 'r') as file:
             content = file.read()
         player_hash = re.search(pattern, content)
@@ -278,7 +334,7 @@ while game_won == 0:
         global player_salt
         global player_hash
         load_json(player)
-        os.system("leo run update_state " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1)+"u8" + " " + str(j1)+"u8" + " " + str(i2)+"u8" + " " + str(j2)+"u8" + ' false' +  ' > ' + player + '_hash.txt')
+        os.system("leo run update_state " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1)+"u8" + " " + str(j1)+"u8" + " " + str(i2)+"u8" + " " + str(j2)+"u8" + ' false' + ' | tee -a ledger.txt > ' + player + '_hash.txt')
         with open(player + '_hash.txt', 'r') as file:
             content = file.read()
         player_hash = re.search(pattern, content)
@@ -293,7 +349,7 @@ while game_won == 0:
         global opp_player_salt
         global opp_player_hash
         load_json(opp_player)
-        os.system("leo run update_state " + opp_player_board_str + " " + opp_player_salt + " " + opp_player_hash + " " + str(i2)+"u8" + " " + str(j2)+"u8" + " " + str(i2)+"u8" + " " + str(j2)+"u8" + ' true' +  ' > ' + opp_player + '_hash.txt')
+        os.system("leo run update_state " + opp_player_board_str + " " + opp_player_salt + " " + opp_player_hash + " " + str(i2)+"u8" + " " + str(j2)+"u8" + " " + str(i2)+"u8" + " " + str(j2)+"u8" + ' true' +  ' | tee -a ledger.txt > ' + opp_player + '_hash.txt')
         with open(opp_player + '_hash.txt', 'r') as file:
             content = file.read()
         opp_player_hash = re.search(pattern, content)
@@ -310,11 +366,11 @@ while game_won == 0:
     elif opp_player_board_arr[i2][j2] != 0:
         print("Verifying " + player + " proof of strength at (" + str(i1)+"u8" + "," + str(j1)+"u8" + ")")
         load_json(player)
-        os.system("leo run reveal_piece " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1)+"u8" + " " + str(j1)+"u8")
+        os.system("leo run reveal_piece " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1)+"u8" + " " + str(j1)+"u8" + " >> ledger.txt")
 
         print("Verifying " + opp_player + " proof of strength at (" + str(i2)+"u8" + "," + str(j2)+"u8" + ")")
         load_json(opp_player)
-        os.system("leo run reveal_piece " + opp_player_board_str + " " + opp_player_salt + " " + opp_player_hash + " " + str(i2)+"u8" + " " + str(j2)+"u8")
+        os.system("leo run reveal_piece " + opp_player_board_str + " " + opp_player_salt + " " + opp_player_hash + " " + str(i2)+"u8" + " " + str(j2)+"u8"+ " >> ledger.txt")
 
         # Case: Miner attacks hash puzzle
         if opp_player_board_arr[i2][j2] == 2 and player_board_arr[i1][j1] == 5:

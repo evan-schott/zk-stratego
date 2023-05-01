@@ -1,0 +1,396 @@
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
+
+➡️  Output
+
+ • 6214503963423989345375359485810143397066129680574145844744178839608771923805field
+
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
+
+➡️  Output
+
+ • 6214503963423989345375359485810143397066129680574145844744178839608771923805field
+
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
+
+➡️  Output
+
+ • 6229438100599155815471985851435915073765767265461397987924625341943841221113field
+
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
+
+➡️  Output
+
+ • 6214503963423989345375359485810143397066129680574145844744178839608771923805field
+
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
+
+➡️  Output
+
+ • 6229438100599155815471985851435915073765767265461397987924625341943841221113field
+
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
+
+➡️  Output
+
+ • 6214503963423989345375359485810143397066129680574145844744178839608771923805field
+
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
+
+➡️  Output
+
+ • 6229438100599155815471985851435915073765767265461397987924625341943841221113field
+
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
+
+➡️  Output
+
+ • 6214503963423989345375359485810143397066129680574145844744178839608771923805field
+
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo Compiled 'main.leo' into Aleo instructions
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+
+
+⛓  Constraints
+
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
+
+➡️  Output
+
+ • 6229438100599155815471985851435915073765767265461397987924625341943841221113field
+
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")

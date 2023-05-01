@@ -40,6 +40,10 @@ program stratego.aleo {
         // Case you are executing normal move, or have won combat
         if is_killed.not() { 
 
+            // prove didn't move bomb or flag 
+            assert_neq(val, 2u128);
+            assert_neq(val, 1u128);
+
             // figure out strength value of piece
             let strength: u128 = val.shr_wrapped(i*3u8);
 

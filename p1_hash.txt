@@ -4,10 +4,10 @@
 
 ⛓  Constraints
 
- •  'stratego.aleo/update_state' - 35,075 constraints (called 1 time)
+ •  'stratego.aleo/update_state' - 35,085 constraints (called 1 time)
 
 ➡️  Output
 
- • 1107732914431497116800167548408127164563857633979113217851390416560736560253field
+ • 6214503963423989345375359485810143397066129680574145844744178839608771923805field
 
        Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
