@@ -1,3 +1,13 @@
        Leo Compiled 'main.leo' into Aleo instructions
-       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/stratego/build")
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
 
+
+⛓  Constraints
+
+ •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+
+➡️  Output
+
+ • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")

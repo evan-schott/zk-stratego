@@ -1,5 +1,5 @@
        Leo Compiled 'main.leo' into Aleo instructions
-       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/stratego/build")
+       Leo ✅ Built 'stratego.aleo' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
 
 
 ⛓  Constraints
@@ -8,6 +8,6 @@
 
 ➡️  Output
 
- • 3022696028183921486128843170473858730579662163804958222358963924403580796285field
+ • 2575361900846681881361861353664950145605584157672685620463419954111030251522field
 
-       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/stratego/build")
+       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
