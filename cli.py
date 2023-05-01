@@ -121,10 +121,10 @@ print_board_str(p1_board)
 os.system('leo ' + 'run ' + 'commit_board ' + p1_board + " " + p1_salt + ' false' ' > p1_hash.txt') # verify board
 with open('p1_hash.txt', 'r') as file:
     content = file.read()
-p1_commit_hash = re.search(pattern, content)
-p1_commit_hash = p1_commit_hash.group()
+p1_hash = re.search(pattern, content)
+p1_hash = p1_hash.group()
 print("P1 board verified.")
-print("Hash commit=" + p1_commit_hash)
+print("Hash commit=" + p1_hash)
 
 # 2. init p2:
 load_json("p2") # Set keys
@@ -134,10 +134,10 @@ print_board_str(p2_board)
 os.system('leo ' + 'run ' + 'commit_board ' + p2_board + " " + p2_salt + ' true' ' > p2_hash.txt') # verify board
 with open('p2_hash.txt', 'r') as file:
     content = file.read()
-p2_commit_hash = re.search(pattern, content)
-p2_commit_hash = p2_commit_hash.group()
+p2_hash = re.search(pattern, content)
+p2_hash = p2_hash.group()
 print("P2 board verified.")
-print("Hash commit=" + p2_commit_hash)
+print("Hash commit=" + p2_hash)
 
 
 # Scans board to see if own flag still stands
@@ -229,8 +229,8 @@ while game_won == 0:
         opp_player_board_arr = str_board_to_arr_board(p2_board)
         player_board_str = p1_board
         opp_player_board_str = p2_board
-        player_hash = p1_commit_hash
-        opp_player_hash = p2_commit_hash
+        player_hash = p1_hash
+        opp_player_hash = p2_hash
         player_salt = p1_salt
         opp_player_salt = p2_salt
     else:
@@ -238,8 +238,8 @@ while game_won == 0:
         opp_player_board_arr = str_board_to_arr_board(p1_board)
         player_board_str = p2_board
         opp_player_board_str = p1_board
-        player_hash = p2_commit_hash
-        opp_player_hash = p1_commit_hash
+        player_hash = p2_hash
+        opp_player_hash = p1_hash
         player_salt = p2_salt
         opp_player_salt = p1_salt
 
@@ -357,7 +357,7 @@ while game_won == 0:
             opp_player_board_str = update_board_lose(opp_player_board_str,i2,j2, opp_player_board_arr[i2][j2])
 
         # Case: Greater strength => opp dies
-        elif opp_player_board_arr[i2][j2] == player_board_arr[i1][j1]:
+        elif opp_player_board_arr[i2][j2] < player_board_arr[i1][j1]:
             opp_killed()
             player_moves()
             opp_player_board_str = update_board_lose(opp_player_board_str,i2,j2, opp_player_board_arr[i2][j2])
