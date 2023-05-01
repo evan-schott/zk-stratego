@@ -38,31 +38,121 @@ We have built a neat CLI for people to play with the circuits. After making sure
 ```
 python3 cli.py
 ```
+The CLI asks both players to place their pieces on the board. To do this, player 1 can edit `player1board.py` while player 2 can edit `player2board.py`.
+
+### Note on deployment
+The current version is not deployed on the testnet, but we have made significant progress on deploying to the local node. Our efforts can be seen in `cli_deploy.py`. 
 
 <details><summary>Sample game</summary>
 
 ```
 $ python3 cli.py
-please input board in u128 encoding:67472864401u128
-[1, 2, 2, 2, 3, 4]
-[4, 5, 5, 6, 6, 7]
-[0, 0, 0, 0, 0, 0]
-[0, 0, 0, 0, 0, 0]
-[0, 0, 0, 0, 0, 0]
-[0, 0, 0, 0, 0, 0]
+please provide the path to the file containing your board data:
+player1board.json
+P1 private board state
 
-Hash commit of p1: 5966404717360953959189500305986519074497859943280855526706174540336189468404field
-please input board in u128 encoding:318631593350490860862688876036096u128
-[0, 0, 0, 0, 0, 0]
-[0, 0, 0, 0, 0, 0]
-[0, 0, 0, 0, 0, 0]
-[0, 0, 0, 0, 0, 0]
-[1, 2, 2, 2, 3, 4]
-[4, 5, 5, 6, 6, 7]
+┌───┬───┬───┬───┬───┬───┐
+│ 1 │ 2 │ 4 │ 5 │ 3 │ 4 │
+├───┼───┼───┼───┼───┼───┤
+│ 2 │ 2 │ 5 │ 6 │ 6 │ 7 │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+└───┴───┴───┴───┴───┴───┘
 
-Hash commit of p2: 3022696028183921486128843170473858730579662163804958222358963924403580796285field
+P1 board verified.
+Hash commit=399577396980623581895515715827396235068708917853474010135638094251711625443field
+
+
+please provide the path to the file containing your board data:
+player2board.json            
+P2 private board state
+
+┌───┬───┬───┬───┬───┬───┐
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│ 5 │ 2 │ 2 │ 2 │ 3 │ 4 │
+├───┼───┼───┼───┼───┼───┤
+│ 4 │ 5 │ 1 │ 6 │ 6 │ 7 │
+└───┴───┴───┴───┴───┴───┘
+
+P2 board verified.
+Hash commit=1960830448338162390348349656925201022571500309579263256742339515213533721675field
 p1 is starting turn now!
-Please input move in format 'x1 y1 x2 y2 '1 0 2 0
+
+
+┌───┬───┬───┬───┬───┬───┐
+│ 1 │ 2 │ 4 │ 5 │ 3 │ 4 │
+├───┼───┼───┼───┼───┼───┤
+│ 2 │ 2 │ 5 │ 6 │ 6 │ 7 │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│ X │ X │ X │ X │ X │ X │
+├───┼───┼───┼───┼───┼───┤
+│ X │ X │ X │ X │ X │ X │
+└───┴───┴───┴───┴───┴───┘
+
+Please indicate which piece to move:
+row: 1
+column: 0
+new row: 2
+new column: 0
+Player board verified.
+New hash commit=1468645310925225490657405982157285187708398193353712892303552439212303809014field
+p2 is starting turn now!
+
+
+┌───┬───┬───┬───┬───┬───┐
+│ X │ X │ X │ X │ X │ X │
+├───┼───┼───┼───┼───┼───┤
+│   │ X │ X │ X │ X │ X │
+├───┼───┼───┼───┼───┼───┤
+│ X │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│ 5 │ 2 │ 2 │ 2 │ 3 │ 4 │
+├───┼───┼───┼───┼───┼───┤
+│ 4 │ 5 │ 1 │ 6 │ 6 │ 7 │
+└───┴───┴───┴───┴───┴───┘
+
+Please indicate which piece to move:
+row: 4
+column: 5
+new row: 3
+new column: 5
+Player board verified.
+New hash commit=3568700823377281081248679351191293413206805514813548872461011266183704765555field
+p1 is starting turn now!
+
+
+┌───┬───┬───┬───┬───┬───┐
+│ 1 │ 2 │ 4 │ 5 │ 3 │ 4 │
+├───┼───┼───┼───┼───┼───┤
+│   │ 2 │ 5 │ 6 │ 6 │ 7 │
+├───┼───┼───┼───┼───┼───┤
+│ 2 │   │   │   │   │   │
+├───┼───┼───┼───┼───┼───┤
+│   │   │   │   │   │ X │
+├───┼───┼───┼───┼───┼───┤
+│ X │ X │ X │ X │ X │   │
+├───┼───┼───┼───┼───┼───┤
+│ X │ X │ X │ X │ X │ X │
+└───┴───┴───┴───┴───┴───┘
 ```
 
 </details>
