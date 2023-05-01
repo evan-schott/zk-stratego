@@ -43,6 +43,31 @@ The CLI asks both players to place their pieces on the board. To do this, player
 ### Note on deployment
 The current version is not deployed on the testnet, but we have made significant progress on deploying to the local node. Our efforts can be seen in `cli_deploy.py`. 
 
+<details><summary>Commands for deployment</summary>
+
+```
+// Start up beacon
+rm -r .ledger-3-0; kill -9 $(lsof -t -i :3030); kill -9 $(lsof -t -i :4130);
+snarkos start --nodisplay --dev 0 --beacon ""
+
+// Check records
+snarkos developer scan -v AViewKey1mSnpFFC8Mj4fXbK5YiWgZ3mjiV8CxA79bYNa8ymUpTrw --start 0 --end 1 --endpoint "http://localhost:3030"
+
+// Deploy
+snarkos developer deploy stratego.aleo --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH --query "http://localhost:3030" --path "./build/" --broadcast "http://localhost:3030/testnet3/transaction/broadcast" --fee 60000000 --record '{owner: aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px.private, microcredits: 375000000000000u64.private,_nonce: 5200513936359795717298866673446568253204834324686345405832419008404219093328group.public}'
+
+// Run function1
+snarkos developer execute stratego.aleo commit_board "318631593350490860862688876036096u128" "0u128" "true" --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH --query "http://localhost:3030" --broadcast "http://localhost:3030/testnet3/transaction/broadcast" --fee 60000000 --record '{owner: aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px.private, microcredits: 375000000000000u64.private, _nonce: 7878975746507090126227171979105950023927846325862272020500118522178700349837group.public}'
+
+// Need to find new record in order to run another function (replace with proper id)
+curl -X GET http://localhost:3030/testnet3/transaction/at10w5sx2gqtrpxzxmd82s3znektrl9dtrxrtwlglfcfrs8p79rj5pqnne5pt
+
+// Decode value from .json using view key to get proper record
+
+```
+
+</details>
+
 <details><summary>Sample game</summary>
 
 ```
