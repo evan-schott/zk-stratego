@@ -4,10 +4,10 @@
 
 ⛓  Constraints
 
- •  'stratego.aleo/commit_board' - 25,740 constraints (called 1 time)
+ •  'stratego.aleo/update_state' - 35,075 constraints (called 1 time)
 
 ➡️  Output
 
- • 6907238730754733367052103741601632965782832804781068322127958263034738445670field
+ • 6214503963423989345375359485810143397066129680574145844744178839608771923805field
 
-       Leo ✅ Executed 'stratego.aleo/commit_board' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")
+       Leo ✅ Executed 'stratego.aleo/update_state' (in "/Users/evanschott/Desktop/2023 Spring/Hackathons/zk-MOOC/stratego/build")

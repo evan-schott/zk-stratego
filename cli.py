@@ -1,6 +1,7 @@
 import os
 import json
 import re
+from pick import pick
 
 p1_pk =  "APrivateKey1zkp6QHHh11csVkMWnVMSpgcySMu7YnwZABJ4FjvWQuQVPiX"
 p1_vk =  "AViewKey1gfDcPVCcLZE6wyVZUpxXxcviD7jDNQRbqEh5L4CzeSTd"
@@ -9,6 +10,17 @@ p1_addr = "aleo1qm997nxje8378czqzxnjft47jjxhdgq23c2jw4leqv6k0ys4ngzq3fp9qh"
 p2_pk =  "APrivateKey1zkp7mWwcLLxTcA2CyoKHfSgxv7cUKxNkQhJcDisUwpJLi4h"
 p2_vk =  "AViewKey1eLahbMecbSj5bYbmfgkHKdHCtgFLdThtBafMAsVxYVi1"
 p2_addr =  "aleo19uznaptte0k4mmvtxhfet4e9cgc0skzwd4a2xefeeay03ga89v9s4rj8gn"
+
+player_board_arr = []
+opp_player_board_arr = []
+player_board_str = ""
+opp_player_board_str = ""
+player_hash = ""
+opp_player_hash = ""
+player_salt = ""
+opp_player_salt = ""
+player = ""
+opp_player =""
 
 p1_program_json = {
     "program": "stratego.aleo",
@@ -63,21 +75,43 @@ Should look like:
 |---|---|---|---|---|---|
 
 '''
+
+VERTICAL_BORDER = '┃'
+HORIZONTAL_BORDER = '━'
+TOP_LEFT = '┏'
+TOP_RIGHT = '┓'
+BOTTOM_LEFT = '┗'
+BOTTOM_RIGHT = '┛'
+LEFT_BORDER = '┣'
+RIGHT_BORDER = '┫'
+BOTTOM_BORDER = '┻'
+TOP_BORDER = '┳'
+CENTER = '╋'
+
+TOP_LINE = TOP_LEFT + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_RIGHT
+MIDDLE_LINE = LEFT_BORDER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + RIGHT_BORDER
+BOTTOM_LINE = BOTTOM_LEFT + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_RIGHT
+
 def print_board_str(board):
     int_board = int(board[:-4]) # remove the 
-    print("\n|---|---|---|---|---|---|")
+    print("\n" + TOP_LINE)
     for i in range(36):
         if i % 6 == 0 and i != 0:
-            print('|')
-            print('|---|---|---|---|---|---|')
+            print(VERTICAL_BORDER)
+            print(MIDDLE_LINE)
 
         cur = (int_board & (2**(3*i)+2**(3*i +1)+2**(3*i +2))) >> (3*i)
-        print('| ' + str(cur) + ' ',end="")
-    print("|")
-    print("|---|---|---|---|---|---|\n")
+        print(VERTICAL_BORDER + ' ' + str(cur) + ' ',end="")
+    print(VERTICAL_BORDER)
+    print(BOTTOM_LINE +"\n")
 
 pattern = r'\d+field'
 
+
+# title = 'Please choose your favorite programming language (press SPACE to mark, ENTER to continue): '
+# options = ['Java', 'JavaScript', 'Python', 'PHP', 'C++', 'Erlang', 'Haskell']
+# selected = pick(options, title, min_selection_count=1)
+# print(selected)
 
 # 1. init p1:
 load_json("p1") # Set keys
@@ -156,14 +190,14 @@ def pov_print_board_arr(hero_board, villain_board):
     print_arr_board(arr)
 
 def print_arr_board(board):
-    print("\n|---|---|---|---|---|---|")
+    print("\n" + TOP_LINE)
     for i in range(36):
         if i % 6 == 0 and i != 0:
-            print('|')
-            print('|---|---|---|---|---|---|')
-        print('| ' + str(board[int(i/6)][i%6]) + ' ',end="")
-    print("|")
-    print("|---|---|---|---|---|---|\n")
+            print(VERTICAL_BORDER)
+            print(MIDDLE_LINE)
+        print(VERTICAL_BORDER + ' ' + str(board[int(i/6)][i%6]) + ' ',end="")
+    print(VERTICAL_BORDER)
+    print(BOTTOM_LINE + "\n")
 
     return
 
@@ -189,14 +223,6 @@ while game_won == 0:
 
     # Check for combat
     # TODO: make sure that we update boards at end too
-    player_board_arr = []
-    opp_player_board_arr = []
-    player_board_str = ""
-    opp_player_board_str = ""
-    player_hash = ""
-    opp_player_hash = ""
-    player_salt = ""
-    opp_player_salt = ""
 
     if player == "p1":
         player_board_arr = str_board_to_arr_board(p1_board)
@@ -217,6 +243,9 @@ while game_won == 0:
         player_salt = p2_salt
         opp_player_salt = p1_salt
 
+    # Print updated board
+    pov_print_board_arr(player_board_arr, opp_player_board_arr)
+
     # Ask for move: (Assume legal move)
     move = input("Please input move in format \'i1 j1 i2 j2 \'")
     i1 = int(move[0])
@@ -224,139 +253,129 @@ while game_won == 0:
     i2 = int(move[4])
     j2 = int(move[6])
 
-    # Case combat 
+    # Update State Functions
+    # Case 1: Player killed
+    def player_killed():
+        global player
+        global player_board_str
+        global player_salt
+        global player_hash
+
+        load_json(player)
+        os.system("leo run update_state " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1)+"u8" + " " + str(j1)+"u8" + " " + str(i2)+"u8" + " " + str(j2)+"u8" + ' true' +  ' > ' + player + '_hash.txt')
+        with open(player + '_hash.txt', 'r') as file:
+            content = file.read()
+        player_hash = re.search(pattern, content)
+        player_hash = player_hash.group()
+        print("Player board verified.")
+        print("New hash commit=" + player_hash) 
+
+    # Case 2: Player moves
+    def player_moves():
+
+        global player
+        global player_board_str
+        global player_salt
+        global player_hash
+        load_json(player)
+        os.system("leo run update_state " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1)+"u8" + " " + str(j1)+"u8" + " " + str(i2)+"u8" + " " + str(j2)+"u8" + ' false' +  ' > ' + player + '_hash.txt')
+        with open(player + '_hash.txt', 'r') as file:
+            content = file.read()
+        player_hash = re.search(pattern, content)
+        player_hash = player_hash.group()
+        print("Player board verified.")
+        print("New hash commit=" + player_hash)
+    
+    # Case: Opp killed
+    def opp_killed():
+        global opp_player
+        global opp_player_board_str
+        global opp_player_salt
+        global opp_player_hash
+        load_json(opp_player)
+        os.system("leo run update_state " + opp_player_board_str + " " + opp_player_salt + " " + opp_player_hash + " " + str(i2)+"u8" + " " + str(j2)+"u8" + " " + str(i2)+"u8" + " " + str(j2)+"u8" + ' true' +  ' > ' + opp_player + '_hash.txt')
+        with open(opp_player + '_hash.txt', 'r') as file:
+            content = file.read()
+        opp_player_hash = re.search(pattern, content)
+        opp_player_hash = opp_player_hash.group()
+        print("Opponent player board verified.")
+        print("New hash commit=" + opp_player_hash)
+
+    # Case capture private key
     if opp_player_board_arr[i2][j2] == 1:
         print(player + " wins!!!\n\nGame over!!\n\n")
         exit(0)
 
+    # Case combat 
     elif opp_player_board_arr[i2][j2] != 0:
-        print("Verifying " + player + " proof of strength at (" + str(i1) + "," + str(j1) + ")")
+        print("Verifying " + player + " proof of strength at (" + str(i1)+"u8" + "," + str(j1)+"u8" + ")")
         load_json(player)
-        os.system("leo run reveal_piece " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1) + " " + str(j1))
+        os.system("leo run reveal_piece " + player_board_str + " " + player_salt + " " + player_hash + " " + str(i1)+"u8" + " " + str(j1)+"u8")
 
-        print("Verifying " + opp_player + " proof of strength at (" + str(i2) + "," + str(j2) + ")")
+        print("Verifying " + opp_player + " proof of strength at (" + str(i2)+"u8" + "," + str(j2)+"u8" + ")")
         load_json(opp_player)
-        os.system("leo run reveal_piece " + opp_player_board_str + " " + opp_player_salt + " " + opp_player_hash + " " + str(i2) + " " + str(j2))
+        os.system("leo run reveal_piece " + opp_player_board_str + " " + opp_player_salt + " " + opp_player_hash + " " + str(i2)+"u8" + " " + str(j2)+"u8")
 
         # Case: Miner attacks hash puzzle
         if opp_player_board_arr[i2][j2] == 2 and player_board_arr[i1][j1] == 5:
+            opp_killed()
+            player_moves()
+
             player_board_str = update_board_win(player_board_str,i1,j1,i2,j2,5)
             opp_player_board_str = update_board_lose(opp_player_board_str,i2,j2,2)
 
+
         # Case: Anyone else attacks hashpuzzle
         elif opp_player_board_arr[i2][j2] == 2:
+            player_killed()
+
             player_board_str = update_board_lose(player_board_str,i1,j1,player_board_arr[i1][j1])
 
         # Case: Whistleblower attacks CEO 
         elif opp_player_board_arr[i2][j2] == 7 and player_board_arr[i1][j1] == 3:
+            opp_killed()
+            player_moves()
+
             player_board_str = update_board_win(player_board_str,i1,j1,i2,j2,3)
             opp_player_board_str = update_board_lose(opp_player_board_str,i2,j2,7)
 
         # Case: CEO attacks Whistleblower 
         elif opp_player_board_arr[i2][j2] == 3 and player_board_arr[i1][j1] == 7:
+            player_killed()
             player_board_str = update_board_lose(player_board_str,i1,j1,7)
 
-        # Case: Lower strength
+        # Case: Lower strength => player dies
         elif opp_player_board_arr[i2][j2] > player_board_arr[i1][j1]:
+            player_killed()
             player_board_str = update_board_lose(player_board_str,i1,j1,player_board_arr[i1][j1])
 
-        # Case: Equal strength
+        # Case: Equal strength => both die
         elif opp_player_board_arr[i2][j2] == player_board_arr[i1][j1]:
+            opp_killed()
+            player_killed()
             player_board_str = update_board_lose(player_board_str,i1,j1,player_board_arr[i1][j1])
+            opp_player_board_str = update_board_lose(opp_player_board_str,i2,j2, opp_player_board_arr[i2][j2])
 
-        # Case: Greater strength
+        # Case: Greater strength => opp dies
         elif opp_player_board_arr[i2][j2] == player_board_arr[i1][j1]:
+            opp_killed()
+            player_moves()
+            opp_player_board_str = update_board_lose(opp_player_board_str,i2,j2, opp_player_board_arr[i2][j2])
+            player_board_str = update_board_win(player_board_str,i1,j1,i2,j2,player_board_arr[i1][j1])
 
+    # Case: Normal movement
+    else: 
+        player_moves()
+        player_board_str = update_board_win(player_board_str,i1,j1,i2,j2,player_board_arr[i1][j1])
 
-
-
-    # This is mess
-    if (player == "p1" and b2[int(x2)][int(y2)] != 0) or (player == "p2" and b1[int(x2)][int(y2)] != 0):
-
-        # Player 1 reveal
-        load_json("p1")
-        os.system("leo run reveal_piece " + p1_cur_board + " " + p1_salt + " " + p1_cur_hash + " " + x2 + " " + y2)
-
-        # Player 2 reveal
-        load_json("p2")
-        os.system("leo run reveal_piece " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x2 + " " + y2)
-
-        # Resolve combat
-        result = input("combat winner in format \'winning_player piece loser_piece\': ") # TODO: add checks if have time
-        if result[0:2] == "p2":
-            b1[int(x2)][int(y2)] = 0
-            b2[int(x1)][int(y1)] = 0
-            b2[int(x2)][int(y2)] = result[3]
-
-            # p2 winner update state
-            load_json("p2") # verify move 
-            os.system("leo run update_state " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p2_hash.txt')
-            with open('p2_hash.txt', 'r') as file:
-                content = file.read()
-            p2_cur_hash = re.search(pattern, content)
-            p2_cur_board = update_board(p2_cur_board, int(x1), int(y1), int(x2), int(y2), int(result[3]), True)
-            p2_cur_board = get_board(p2_cur_board)
-
-            # p1 loser update state
-            load_json("p1") # verify move 
-            os.system("leo run update_state " + p1_cur_board + " " + p1_salt + " " + p1_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' true' +  ' > p1_hash.txt')
-            with open('p1_hash.txt', 'r') as file:
-                content = file.read()
-            p1_cur_hash = re.search(pattern, content)
-            p1_cur_board = update_board(p1_cur_board, int(x1), int(y1), int(x2), int(y2), int(result[5]), False)
-            p1_cur_board = get_board(p1_cur_board)
-
-        else: 
-            b1[int(x2)][int(y2)] = result[3]
-            b1[int(x1)][int(y1)] = 0
-            b2[int(x2)][int(y2)] = 0
-
-            # p2 loser update state
-            load_json("p2") # verify move 
-            os.system("leo run update_state " + p2_cur_board + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' true' +  ' > p2_hash.txt')
-            with open('p2_hash.txt', 'r') as file:
-                content = file.read()
-            p2_cur_hash = re.search(pattern, content)
-            p2_cur_board = update_board(p2_cur_board, int(x1), int(y1), int(x2), int(y2), int(result[5]), False)
-            p2_cur_board = get_board(p2_cur_board)
-
-            # p1 winner update state
-            load_json("p1") # verify move 
-            os.system("leo run update_state " + p1_cur_board + " " + p1_salt + " " + p1_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p1_hash.txt')
-            with open('p1_hash.txt', 'r') as file:
-                content = file.read()
-            p1_cur_hash = re.search(pattern, content)
-            p1_cur_board = update_board(p1_cur_board, int(x1), int(y1), int(x2), int(y2), int(result[3]), True)
-            p1_cur_board = get_board(p1_cur_board)
-    
-    # normal move
+    # Update player and opp player info (board, hash)
+    if player == "p1":
+        p1_board = player_board_str
+        p2_board = opp_player_board_str
+        p1_hash = player_hash
+        p2_hash = opp_player_hash
     else:
-        if player == "p2":
-            os.system("leo run update_state " + player + " " + p2_salt + " " + p2_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p2_hash.txt')
-            with open('p2_hash.txt', 'r') as file:
-                content = file.read()
-            p2_cur_hash = re.search(pattern, content)
-            
-        else:
-            os.system("leo run update_state " + player + " " + p1_salt + " " + p1_cur_hash + " " + x1 + " " + y1 + " " + x2 + " " + y2 + ' false' +  ' > p1_hash.txt')
-            with open('p1_hash.txt', 'r') as file:
-                content = file.read()
-            p1_cur_hash = re.search(pattern, content)
-    
-    print("P1 Board:")
-    print_board(p1_cur_board)
-    print("P2 Board:")
-    print_board(p2_cur_board)
-
-
-    p2_win = check_win(p1_cur_board)
-    p1_win = check_win(p2_cur_board)
-
-    if p1_win:
-        print("P1 WIN")
-        game_won = 1
-    if p2_win:
-        print("P2 WIN")
-        game_won = 2
-    
-
+        p2_board = player_board_str
+        p1_board = opp_player_board_str
+        p2_hash = player_hash
+        p1_hash = opp_player_hash

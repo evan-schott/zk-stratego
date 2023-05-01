@@ -1,15 +1,32 @@
+VERTICAL_BORDER = '┃'
+HORIZONTAL_BORDER = '━'
+TOP_LEFT = '┏'
+TOP_RIGHT = '┓'
+BOTTOM_LEFT = '┗'
+BOTTOM_RIGHT = '┛'
+LEFT_BORDER = '┣'
+RIGHT_BORDER = '┫'
+BOTTOM_BORDER = '┻'
+TOP_BORDER = '┳'
+CENTER = '╋'
+
+
+TOP_LINE = TOP_LEFT + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_BORDER + 3*HORIZONTAL_BORDER + TOP_RIGHT
+MIDDLE_LINE = LEFT_BORDER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + CENTER + 3*HORIZONTAL_BORDER + RIGHT_BORDER
+BOTTOM_LINE = BOTTOM_LEFT + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_BORDER + 3*HORIZONTAL_BORDER + BOTTOM_RIGHT
+
 def print_board_str(board):
     int_board = int(board[:-4]) # remove the 
-    print("\n|---|---|---|---|---|---|")
+    print("\n" + TOP_LINE)
     for i in range(36):
         if i % 6 == 0 and i != 0:
-            print('|')
-            print('|---|---|---|---|---|---|')
+            print(VERTICAL_BORDER)
+            print(MIDDLE_LINE)
 
         cur = (int_board & (2**(3*i)+2**(3*i +1)+2**(3*i +2))) >> (3*i)
-        print('| ' + str(cur) + ' ',end="")
-    print("|")
-    print("|---|---|---|---|---|---|\n")
+        print(VERTICAL_BORDER + ' ' + str(cur) + ' ',end="")
+    print(VERTICAL_BORDER)
+    print(BOTTOM_LINE +"\n")
 
 # Converts to array representation
 def str_board_to_arr_board(board):
@@ -53,14 +70,14 @@ def pov_print_board_arr(hero_board, villain_board):
     print_arr_board(arr)
 
 def print_arr_board(board):
-    print("\n|---|---|---|---|---|---|")
+    print("\n" + TOP_LINE)
     for i in range(36):
         if i % 6 == 0 and i != 0:
-            print('|')
-            print('|---|---|---|---|---|---|')
-        print('| ' + str(board[int(i/6)][i%6]) + ' ',end="")
-    print("|")
-    print("|---|---|---|---|---|---|\n")
+            print(VERTICAL_BORDER)
+            print(MIDDLE_LINE)
+        print(VERTICAL_BORDER + ' ' + str(board[int(i/6)][i%6]) + ' ',end="")
+    print(VERTICAL_BORDER)
+    print(BOTTOM_LINE + "\n")
 
     return
 
