@@ -1,0 +1,6 @@
+
+📦 Creating execution transaction for 'stratego.aleo'...
+
+✅ Successfully broadcast execution 'stratego.aleo/commit_board' to the http://localhost:3030/testnet3/transaction/broadcast.
+at1v5ujg7dhngvjffuxlc2csuqq5vcej789925y764ld5g6fen57qzqcq0dl4
+

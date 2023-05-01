@@ -101,7 +101,7 @@ program stratego.aleo {
     * When making the next move, this hash value is referenced to prove that no piece has been sneakily moved
     * since the last public move.
     **/
-    transition commit_board(board: u128, salt: u128, is_player_2: bool) -> field {
+    transition commit_board(board: u128, salt: u128, is_player_2: bool) -> public field {
 
         // counters for the pieces
         let c0: u8 = 0u8;

@@ -1,6 +1,9 @@
-def print_red(text):
-    red = "\033[31m"
-    reset = "\033[0m"
-    print(f"{red}{text}{reset}",end='')
+import json
 
-print_red("hello")
+# Replace 'file_name.json' with the path to your JSON file
+file_path = 'intermediate.json'
+
+with open(file_path, 'r') as file:
+    data = json.load(file)
+
+print(data)
